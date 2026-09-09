@@ -1,5 +1,5 @@
 from time import sleep
-
+#falta muita coisa ainda visse
 lista = []
 encerrar = False
 
@@ -19,8 +19,16 @@ while True:
                 print('VALOR INVALIDO, É NECESSÁRIO PREENCHER O NOME DO CANDIDATO')
     vice = input(f'Qual o vice de {candidato}? ')
     partido = input(f'Qual o partido de {candidato}? ')
-    votos = int(input(f'[obrigatório] Quantos votos {candidato} tem até o momento? '))
 
+    while True:
+        try:
+            votos = int(input(f'[obrigatório] Quantos votos {candidato} tem até o momento? '))
+            break
+        except ValueError:
+            print('VALOR INVALIDO, É NECESSÁRIO PREENCHER O NÚMERO DE VOTOS DO CANDIDATO')
+            sleep(1)
+            continue
+        
     if vice.strip() == '':
         vice = 'Sem vice'
 
@@ -45,6 +53,7 @@ while True:
         break        
     i += 1
 
+
 print('As informações recebidas foram as seguites:')
 for c in range(len(lista)):
     print(f'Candidato(a): {lista[c][0]}')
@@ -53,5 +62,4 @@ for c in range(len(lista)):
         print(f'Partido: {lista[c][2]}')
         print(f'Votos até o momento: {lista[c][3]}')
     print('----------------------------------')
-    sleep(2)
-    
+
