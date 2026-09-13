@@ -1,6 +1,18 @@
 from ast import While
 from time import sleep
-#falta muita coisa ainda visse
+'''
+Funções Básicas funcionando, bugs até o momento corrigidos
+
+Pendências:
+
+-Fazer menu
+--adicionar votos
+--mudar nome do partido/vice/candidato
+--melhorar formatação das saídas (principalmente o "rank" da pesquisa)
+
+-Invalidar números para vice e partido
+
+'''
 lista = []
 lista_porcentagem = []
 encerrar = False
@@ -19,8 +31,32 @@ while True:
                 print('VALOR INVALIDO, NÃO É PERMITIDO NÚMEROS NO NOME DO CANDIDATO')
             else:
                 print('VALOR INVALIDO, É NECESSÁRIO PREENCHER O NOME DO CANDIDATO')
-    vice = input(f'Qual o vice de {candidato}? ')
-    partido = input(f'Qual o partido de {candidato}? ')
+            sleep(1)
+
+    while True:
+            vice = input(f'Nome do vice de {i}: ')
+            if (vice.replace(' ', '')).isalpha():
+                break
+            else:
+                if (candidato.replace(' ', '')).isalnum() or (partido.replace(' ', '')).isnumeric():
+                    print('VALOR INVALIDO, NÃO É PERMITIDO NÚMEROS NO NOME DO VICE')
+                else:
+                    vice = 'Sem Vice'
+                    break
+                sleep(1)
+
+    while True:
+            partido = input(f'Nome do partido de {i}: ')
+            if (partido.replace(' ', '')).isalpha():
+                break
+            else:
+                if (partido.replace(' ', '')).isalnum() or (partido.replace(' ', '')).isnumeric():
+                    print('VALOR INVALIDO, NÃO É PERMITIDO NÚMEROS NO NOME DO VICE')
+                else:
+                    partido = 'Sem partido'
+                    break
+                sleep(1)
+    
 
     while True:
         try:
@@ -30,12 +66,6 @@ while True:
             print('VALOR INVALIDO, É NECESSÁRIO PREENCHER O NÚMERO DE VOTOS DO CANDIDATO')
             sleep(1)
             continue
-        
-    if vice.strip() == '':
-        vice = 'Sem vice'
-
-    if partido.strip() == '':
-        partido = 'Sem partido'
 
     lista.append([candidato, vice, partido, votos])
 
@@ -49,6 +79,7 @@ while True:
             break
         else:
             print('Digite um valor válido, apenas sim (ou S) ou não (ou N)')
+            sleep(1)
 
     if encerrar:
         break        
@@ -73,6 +104,8 @@ for c in range(len(lista)):
     porcentagem = (lista[c][3] / total_votos) * 100
     lista_porcentagem.append(porcentagem)
     lista[c].append(porcentagem)
+
+lista_porcentagem.sort(reverse=True)
 
 i = c = 0
 while i < len(lista):
